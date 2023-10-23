@@ -1,26 +1,93 @@
-Introduction: This project is all about using cutting-edge deep learning techniques to identify and classify objects within images. Whether you want to create an image recognition system for your own projects or simply explore the fascinating world of computer vision, this repository has got you covered.
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+import os
+path
+classes = {'no_tumor':0, 'pituitary_tumor':1}
+import
+X = []
+Y = []
+for cls in classes:
+ pth = +
+ for j in os.listdir(pth):
+ img = cv2.imread(pth+'/'+j,0)
+ img = cv2.resize(img, (200, 200))
+ X.append(img)
+ Y.append(classes[cls])
+ np.unique(Y)
+X = np.array(X)
+Y = np.array(Y)
+pd.Series(Y).value_counts()
+X.shape
+plt.imshow(X[0], cmap='gray')
+X_updated = X.reshape(len(X), -1)
+X_updated.shape
+xtrain, xtest, ytrain, ytest = train_test_split(X_updated, Y, random_state=10, test_size=.20
+xtrain.shape, xtest.shape
+print(xtrain.max(), xtrain.min())
+print(xtest.max(), xtest.min())
+xtrain = xtrain/255
+xtest = xtest/255
+print(xtrain.max(), xtrain.min())
+print(xtest.max(), xtest.min())from sklearn.decomposition import PCA
+print(xtrain.shape, xtest.shape)
+pca = PCA(.98)
+pca_train = xtrain
+pca_test = xtest
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+import warnings
+warnings.filterwarnings('ignore')
+lg = LogisticRegression(C=0.1)
+lg.fit(pca_train, ytrain)
+sv = SVC()
+sv.fit(pca_train, ytrain)
+print("Training Score:", lg.score(pca_train, ytrain))
+print("Testing Score:", lg.score(pca_test, ytest))
+print("Training Score:", sv.score(pca_train, ytrain))
+print("Testing Score:", sv.score(pca_test, ytest))
+pred = sv.predict(pca_test)
+np.where(ytest != pred)
+pred[36]
+ytest[36]
+dec = {0:'No Tumor', 1:'Positive Tumor'}
+plt.figure(figsize=(12,8))
+p =
+c=1
+for i in
+ plt.subplot(3,3,c)
+ 
+ = cv2.imread(
+ img1 = cv2.resize(img, (200,200))
+ img1 = img1.reshape(1,-1)/255
+ p = sv.predict(img1)
+ plt.title(dec[p[0]])
+ plt.imshow(img, cmap='gray')
+ plt.axis('off')
+ c+=1
+ plt.figure(figsize=(12,8))
+p =
+c=1
+ plt.subplot(4,4,c)
+ 
+ 
+ img1 = cv2.resize(img, (200,200))
+ img1 = img1.reshape(1,-1)/255
+ p = sv.predict(img1)
+ plt.title(dec[p[0]])
+ plt.imshow(img, cmap='gray')
+ plt.axis('off')
+ c+=1
+p=os.listdir('C:sohan/project/Brain Tumor Detection Classification/Testing/pi')
+for i in os.listdir('C:/sohan/project/Brain Tumor Detection Classification/Testing/pi')
+img = cv2.imread('C:/sohan/project/Brain Tumor Detection Classification/Testing/pi')
+ img1 = cv2.resize(img, (200,200))
+img1 = img1.reshape(1,-1)/255
+ p = sv.predict(img1)
+ plt.title(dec[p[0]])
+ plt.imshow(img, cmap='gray')
+ plt.axis('off')
+ c+=1
 
-Features:
-
-Deep Learning Models: We provide a selection of pre-trained deep learning models, including Convolutional Neural Networks (CNNs) such as VGG, ResNet, and Inception, which you can use for image recognition tasks.
-
-Custom Training: Want to train your own image recognition model? You can easily do that with our step-by-step guides, datasets, and pre-processing scripts.
-
-Demo: We've included a demo application that showcases the power of image recognition in action. Upload your own images or use the provided sample images to see the models in action.
-
-Usage:
-
-Getting Started: Follow our comprehensive setup instructions to get the project up and running on your local machine.
-
-Documentation: Our detailed documentation explains the usage of various models, how to fine-tune them, and the best practices for image recognition tasks.
-
-Contributions: We welcome contributions from the open-source community. Whether it's adding new models, improving existing ones, or enhancing the documentation, your help is appreciated.
-
-Sample Applications:
-
-Use this project for a wide range of applications, such as:
-Object detection
-Facial recognition
-Content-based image retrieval
-Autonomous vehicles
-Medical image analysis
